@@ -1,5 +1,6 @@
 
 
+
 # TITLE:      Functions for plotting FAOSTAT data into .pdf files
 # DESCRIPTION:This file contains three functions:
 #				build_fs_plot :
@@ -15,12 +16,13 @@
 # Plotting function
 build_one_plot <-
   function(data, timeseries_var, flagList = NA) {
-    
     require(plyr)
     require(dplyr)
     require(tidyr)
     require(grid)
-    require("ggplot2")
+    require(ggplot2)
+    require(ggthemes)
+    require(scales)
     
     # one big IF statement to clean the resist against the breaking funciton when there is no data.
     if (nrow(data %>% filter(!is.na(Value))) == 0)
@@ -40,11 +42,13 @@ build_one_plot <-
       g <- ggplot(data = data)
       g <-
         g +
-        aes_string("Year",
-                   "Value",
-                   fill = timeseries_var,
-                   colour = timeseries_var,
-                   linetype = timeseries_var)
+        aes_string(
+          "Year",
+          "Value",
+          fill = timeseries_var,
+          colour = timeseries_var,
+          linetype = timeseries_var
+        )
       
       # To avoid error: "geom_path: Each group consists of only one observation. Do you need to adjust the group aesthetic?
       # We check, if there is only one observation in each group
@@ -53,7 +57,7 @@ build_one_plot <-
         filter(!is.na(Value)) %>%
         group_by_(.dots = timeseries_var) %>%
         summarise(num_obs = n()) %>%
-        mutate(num_obs = ifelse(num_obs <= 1, FALSE, TRUE)) %>% 
+        mutate(num_obs = ifelse(num_obs <= 1, FALSE, TRUE)) %>%
         .$num_obs %>%
         any()
       
@@ -78,32 +82,25 @@ build_one_plot <-
         g <- g + ylab(paste0("Value"))
       }
     }
-    
+    ItemCode_t <- unique(data$ItemCode)
+    ElementCode_t <- unique(data$ElementCode)
     # Titles
     g <-
       g +
       ggtitle(
-        paste0(
-          data$AreaName,
-          " - ",
-          data$AreaCode,
-          "\nItem: ",
-          data$ItemCode,
-          " - ",
-          data$ItemName,
-          "; Element: ",
-          data$ElementCode,
-          " - ",
-          data$ElementName
-        )
+        str_c(ElementCode_t, " - ", data$ElementName, ";\n",
+              ItemCode_t, " - ", data$ItemName, ";\n", 
+              data$AreaCode, " - ", data$AreaName)
       ) +
       scale_x_continuous(minor_breaks = seq(min(data$Year) , max(data$Year), 1),
-                         breaks = scales::pretty_breaks(n = (max(data$Year) - min(data$Year)) / 5)) +
-      scale_y_continuous(breaks = scales::pretty_breaks(n = 10))
+                         breaks = pretty_breaks(n = (max(data$Year) - min(data$Year)) / 2)) 
     
     g <- g + xlab("Year")
-    
-    # g + expand_limits(y = 0)
-    g
+    g + expand_limits(y = 0)
+    g + 
+      theme_excel() + 
+      scale_colour_excel(palette = "new") +
+      theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+      geom_vline(xintercept = 2016)
     
   }

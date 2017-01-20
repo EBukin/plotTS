@@ -43,6 +43,7 @@ grid_arrange_shared_legend <-
     )
     
     grid.draw(combined)
-	grid.newpage()
+    grid.newpage()
+	
     
   }
