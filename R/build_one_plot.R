@@ -90,7 +90,7 @@ build_one_plot <-
       ggtitle(
         str_c(str_replace_na(c(ElementCode_t, " - ", unique(data$ElementName), ";\n",
               ItemCode_t, " - ", unique(data$ItemName), ";\n", 
-              unique(data$AreaCode), " - ", unique(data$AreaName))))
+              unique(data$AreaCode), " - ", unique(data$AreaName))), collapse = "")
       ) +
       scale_x_continuous(minor_breaks = seq(min(data$Year) , max(data$Year), 1),
                          breaks = pretty_breaks(n = (max(data$Year) - min(data$Year)) / 2)) 
@@ -98,8 +98,8 @@ build_one_plot <-
     g <- g + xlab("Year")
     g + expand_limits(y = 0)
     g + 
-      theme_excel() + 
-      scale_colour_excel(palette = "new") +
+      # theme_excel() + 
+      # scale_colour_excel(palette = "new") +
       theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
       geom_vline(xintercept = 2016)
     
