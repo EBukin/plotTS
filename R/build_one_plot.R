@@ -88,9 +88,9 @@ build_one_plot <-
     g <-
       g +
       ggtitle(
-        str_c(ElementCode_t, " - ", data$ElementName, ";\n",
-              ItemCode_t, " - ", data$ItemName, ";\n", 
-              data$AreaCode, " - ", data$AreaName)
+        str_c(str_replace_na(c(ElementCode_t, " - ", unique(data$ElementName), ";\n",
+              ItemCode_t, " - ", unique(data$ItemName), ";\n", 
+              unique(data$AreaCode), " - ", unique(data$AreaName))))
       ) +
       scale_x_continuous(minor_breaks = seq(min(data$Year) , max(data$Year), 1),
                          breaks = pretty_breaks(n = (max(data$Year) - min(data$Year)) / 2)) 
