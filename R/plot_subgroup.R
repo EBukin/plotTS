@@ -1,5 +1,7 @@
 # Plot a subgroup only when number of plotsin agroup is bigger than nyumber of plots per page
-plot_subgroup <- function(df, n_page, plots_var, timeseries_var) {
+plot_subgroup <- function(df, n_page, plots_var, timeseries_var, all_vars) {
+  if (is.na(plots_var)) plots_var <- all_vars[!all_vars %in% c(timeseries_var)]
+  
   n_plots <-
     df %>%
     group_by_(.dots = plots_var) %>%
