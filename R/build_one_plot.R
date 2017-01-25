@@ -93,10 +93,11 @@ build_one_plot <-
               unique(data$AreaCode), " - ", unique(data$AreaName))), collapse = "")
       ) +
       scale_x_continuous(minor_breaks = seq(min(data$Year) , max(data$Year), 1),
-                         breaks = pretty_breaks(n = (max(data$Year) - min(data$Year)) / 2)) 
+                         breaks = pretty_breaks(n = (max(data$Year) - min(data$Year)) / 2)) +
+      scale_y_continuous() +
+      expand_limits(y = 0)
     
     g <- g + xlab("Year")
-    g + expand_limits(y = 0)
     g + 
       # theme_excel() + 
       # scale_colour_excel(palette = "new") +
