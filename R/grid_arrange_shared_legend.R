@@ -49,9 +49,8 @@ grid_arrange_shared_legend <-
         widths = unit.c(unit(1, "npc") - lwidth, lwidth)
       )
     )
-    
+    grid.newpage()
     grid.draw(combined, recording=FALSE)
-    # grid.newpage()
 	
     
   }
