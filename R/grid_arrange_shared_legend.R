@@ -4,12 +4,20 @@
 grid_arrange_shared_legend <-
   function(...,
            plots_list,
-           position = c("bottom", "right")) {
+           position = c("bottom", "right"),
+           n_page) {
     require(ggplot2)
     require(gridExtra)
     require(grid)
     
     nplots <- length(plots_list)
+    if(nplots < n_page) {
+      l_ply(seq(nplots+1,n_page), 
+            function(x) {
+              plots_list[[length(plots_list)+1]] <<- ggplot() + geom_blank()
+              })
+      nplots <- length(plots_list)
+    }
     ncol <- ceiling(sqrt(nplots))
     nrow = ceiling(nplots / ncol)
     
