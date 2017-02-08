@@ -50,8 +50,8 @@ grid_arrange_shared_legend <-
       )
     )
     
-    grid.draw(combined)
-    grid.newpage()
+    grid.draw(combined, recording=FALSE)
+    # grid.newpage()
 	
     
   }
