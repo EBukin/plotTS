@@ -7,7 +7,7 @@ plot_pages_into_pdf <-
            output_name = "",
            file_width = 29.7 / 1.8,
            file_heights = 21 / 1.8,
-           files_var = "AreaCode",
+           files_var = NA,
            groups_var = NA,
            plots_var = NA,
            timeseries_var = "d.source",
@@ -21,7 +21,7 @@ plot_pages_into_pdf <-
     
     # File path
     output_name <-
-      normalizePath(file.path(output_path, output_name))
+      str_c(output_path, "/", output_name)
     
     d_ply(df,
           files_var,
@@ -30,7 +30,7 @@ plot_pages_into_pdf <-
               str_c(unique(df[, files_var])[[1]], "_", Sys.Date(), ".pdf")
             
             if (write_pdf) {
-              file_path_name <- str_c(output_name, file_by_name)
+              file_path_name <- path.expand(str_c(output_name, file_by_name))
               graphics.off()
               pdf(file_path_name,
                   width = file_width,
