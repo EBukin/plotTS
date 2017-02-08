@@ -17,4 +17,5 @@ Imports:
     gridExtra (>= 2.2.1),
     ggplot2 (>= 2.2.1),
     ggthemes (>= 3.3.0),
-    scales (>= 0.4.1)
+    scales (>= 0.4.1),
+    stringr (>= 1.0.0)
