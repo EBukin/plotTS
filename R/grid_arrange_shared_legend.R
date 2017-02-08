@@ -49,8 +49,17 @@ grid_arrange_shared_legend <-
         widths = unit.c(unit(1, "npc") - lwidth, lwidth)
       )
     )
-    grid.newpage()
-    grid.draw(combined, recording=FALSE)
-	
+    
+    if (names(dev.cur()) %in% c("RStudioGD", "null device"))
+    {
+      grid.newpage()
+      grid.draw(combined)
+    }
+    
+    if (names(dev.cur()) == "pdf")
+    {
+      grid.draw(combined)
+      grid.newpage()
+    }
     
   }
