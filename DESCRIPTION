@@ -1,20 +1,20 @@
-Package: prot_ts
-Type: Package
-Title: Package for building timeseries data plots based on the faostat data
-Version: 0.1.0
-Author: Eduard Bukin
+Package: plotTS
+Version: 0.1.2
+Date: 2017-02-08
+Title: Set of functions for plotting timeseries data faostat-based data
+Author: Eduard Bukin <edwardbukin@gmail.com>
 Maintainer: Eduard Bukin <edwardbukin@gmail.com>
-Description: Thge package is made for convenient ploting of data which 
-	is prepared and stored in the faostat structure format.
-License: MIT
+Description: Thge package is made for convenient ploting of data which is prepared and stored in the faostat structure format.
+Depends: R (>= 3.1.0) 
+License: GPL-2
 Encoding: UTF-8
 LazyData: true
 Imports:
-    plyr,
-    dplyr,
-    tidyr,
-    grid,
-    gridExtra,
-    ggplot2,
-    ggthemes,
-    scales)
+    plyr (>= 1.8.4),
+    dplyr (>= 0.5.0),
+    tidyr (>= 0.6.0),
+    grid (>=  3.3.2),
+    gridExtra (>= 2.2.1),
+    ggplot2 (>= 2.2.1),
+    ggthemes (>= 3.3.0),
+    scales (>= 0.4.1)
